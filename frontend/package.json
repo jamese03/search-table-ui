@@ -8,7 +8,9 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.74.4",
     "@tanstack/react-table": "^8.21.3",
+    "axios": "^1.8.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
