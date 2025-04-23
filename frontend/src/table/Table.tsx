@@ -66,18 +66,22 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
                     placeholder="Filter by name"
                     onChange={(e) => handleFilterChange("name", e.target.value)}
                     style={{padding: "0.5rem"}}
+                    disabled={personData.length == 0}
+
                 />
                 <input
                     type="text"
                     placeholder="Filter by age"
                     onChange={(e) => handleFilterChange("age", e.target.value)}
                     style={{padding: "0.5rem"}}
+                    disabled={personData.length == 0}
                 />
                 <input
                     type="text"
                     placeholder="Filter by country"
                     onChange={(e) => handleFilterChange("country", e.target.value)}
                     style={{padding: "0.5rem"}}
+                    disabled={personData.length == 0}
                 />
             </div>
             <table>

@@ -1,29 +1,32 @@
-import Table from "./Table.tsx";
-import {fetchSearchData} from "../lib/search.service.ts";
 import * as React from "react";
+import Table from "./Table.tsx";
+import {useSearchParams} from "react-router";
 import {useQuery} from "@tanstack/react-query";
+import {fetchSearchData} from "../lib/search.service.ts";
 
 const TableWrapper: React.FC = () => {
+    const [searchParams] = useSearchParams();
 
-    const {data: personData, isLoading, error} = useQuery({
-        queryKey: ['personData'],
-        queryFn: fetchSearchData
+    const name = searchParams.get("name");
+    const age = searchParams.get("age");
+    const country = searchParams.get("country");
+    const {data, isLoading, error} = useQuery({
+        queryKey: ["searchResults", {name, age, country}],
+        queryFn: () => fetchSearchData({name, age, country}),
+        enabled: !!(name || age || country),
     });
-
-
-    if(isLoading) {
-        return <div> Loading table data</div>
+    const personData = data?.persons;
+    if (isLoading) {
+        return <div> loading </div>
     }
-
-    if(error) {
-        return <div> error fetching table data</div>
+    if (error) {
+        return <div> error fetching search results </div>
     }
-
     return (
-        <div>
-            <Table personData={personData} />
-        </div>
-    );
+        <>
+            <Table personData={personData}/>
+        </>
+    )
 }
 
-export default TableWrapper
+export default TableWrapper;
